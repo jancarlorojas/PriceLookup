@@ -1,0 +1,44 @@
+from tkinter import *
+import tkinter as tk
+
+## Produce Price Lookup ##
+
+gui = Tk(className= 'price lookup')
+gui.resizable(False, False)
+gui.geometry('200x150')
+gui.configure(bg = 'white')
+
+searchHere = Label(gui, text = 'Search Price For Item:', bg = 'white')
+searchHere.grid(row =8, column = 1,)
+
+priceLookup = Entry(gui, bg = 'white', )
+priceLookup.grid(row = 9, column = 1,padx = 40)
+
+itemPrices = {}
+
+def getPrice():
+    
+    itemPrices = {}
+
+    x1 = priceLookup.get()
+
+    with open ('pricesearch.txt.txt') as f:
+        for line in f:
+            float, val = line.split()[0],line.split()[1]
+            itemPrices[str(float)] = val
+
+    prPrice = Label(gui, text = '$' + itemPrices[x1] + ' /lbs', bg = 'white')
+    prPrice.grid(row = 13, column = 1, )
+
+
+button1 = Button(text = 'Search', command = getPrice, bg = 'white')
+button1.grid(row = 11, column = 1,)
+
+finalPrice = Label(gui, text = 'The price is: ', bg = 'white')
+finalPrice.grid(row = 12, column = 1, )
+
+
+
+
+
+gui.mainloop()
